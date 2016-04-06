@@ -5,6 +5,14 @@
     <title>Video Chat</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="manifest" href="manifest.json">
+
+    <!--for ios-->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Chatty">
+    <link rel="apple-touch-icon" href="chatIcon-256.png">
+
     <!-- 1. Load webcomponents-lite.min.js for polyfill support. -->
     <script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
 
@@ -23,6 +31,8 @@
     <link rel="import" href="bower_components/paper-button/paper-button.html">
     <link rel="import" href="bower_components/paper-input/paper-input.html">
     <link rel="import" href="bower_components/iron-image/iron-image.html">
+    <link rel="import" href="bower_components/platinum-sw/platinum-sw-register.html">
+    <link rel="import" href="bower_components/platinum-sw/platinum-sw-cache.html">
 
     <script src="node_modules/peerjs_fork_firefox40/dist/peer.min.js"></script>
 
@@ -40,32 +50,36 @@
     <div id="content">
 
         <div id="imageBlock">
-            <iron-image preload fade background-color: lightgray;" src="chatIcon-256.png"></iron-image>
+            <iron-image preload fade background-color: lightgray; " src="chatIcon-256.png "></iron-image>
         </div>
 
-        <video width="100%" height="100%" autoplay></video>
+        <video width="100% " height="100% " autoplay></video>
 
-        <div id="idBlock">
+        <div id="idBlock ">
             My ID:
-            <span id="myId"></span>
+            <span id="myId "></span>
         </div>
 
-        <paper-dialog entry-animation="scale-up-animation" exit-animation="fade-out-animation">
+        <paper-dialog entry-animation="scale-up-animation " exit-animation="fade-out-animation ">
             <h2>Call Who?</h2>
             <div>
-                <paper-input id="callInput" label="ID"></paper-input>
+                <paper-input id="callInput " label="ID "></paper-input>
             </div>
-            <div class="buttons">
+            <div class="buttons ">
                 <paper-button dialog-dismiss>Cancel</paper-button>
-                <paper-button id="callButton" dialog-confirm>Call</paper-button>
+                <paper-button id="callButton " dialog-confirm>Call</paper-button>
             </div>
         </paper-dialog>
 
-        <paper-fab id="fabButton" icon="communication:call"></paper-fab>
+        <paper-fab id="fabButton " icon="communication:call "></paper-fab>
 
-        <paper-button id="callEndButton">End Call</paper-button>
+        <paper-button id="callEndButton ">End Call</paper-button>
 
     </div>
+    
+    <platinum-sw-register auto-register>
+        <platinum-sw-cache></platinum-sw-cache>
+    </platinum-sw-register>
 
 
     <script src="main.js "></script>

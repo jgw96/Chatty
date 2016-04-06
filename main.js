@@ -10,6 +10,14 @@ const smiley = document.querySelector("iron-image");
 
 let caller;
 
+const vibrate = (time) => {
+    const supportsVibrate = "vibrate" in navigator;
+
+    if (supportsVibrate) {
+        navigator.vibrate(time);
+    }
+}
+
 peer.on('open', (id) => {
     console.log('My peer ID is: ' + id);
     const idSpan = document.querySelector("#myId");
@@ -23,7 +31,7 @@ peer.on('call', (call) => {
     fabButton.style.display = "none";
     idBlock.style.display = "none";
     smiley.style.display = "none";
-    
+
 
     callEndButton.addEventListener("click", () => {
         call.close();
@@ -38,6 +46,7 @@ peer.on('call', (call) => {
     })
 
     navigator.getUserMedia({ video: true, audio: true }, (stream) => {
+        vibrate(500);
         call.answer(stream); // Answer the call with an A/V stream.
         call.on('stream', (remoteStream) => {
             // Show stream in some video/canvas element.
@@ -59,7 +68,7 @@ callButton.addEventListener("click", () => {
         fabButton.style.display = "none";
         idBlock.style.display = "none";
         smiley.style.display = "none";
-        
+
 
         callEndButton.addEventListener("click", () => {
             caller.close();
@@ -67,6 +76,7 @@ callButton.addEventListener("click", () => {
 
         navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
         navigator.getUserMedia({ video: true, audio: true }, (stream) => {
+            vibrate(500);
             caller = peer.call(callInput.value, stream);
             caller.on('stream', (remoteStream) => {
                 // Show stream in some video/canvas element.
