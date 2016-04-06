@@ -1,7 +1,7 @@
 "use strict";
 
 //const peer = new Peer({ key: 'lwjd5qra8257b9' });
-const peer = new Peer({host: "web-chatty.herokuapp.com", path: "/myapp"})
+const peer = new Peer({host: "chatty-web.herokuapp.com", secure:true, port:443, key: 'peerjs', debug: 3})
 const video = document.querySelector('video');
 const fabButton = document.querySelector("#fabButton");
 const callDialog = document.querySelector("paper-dialog");
