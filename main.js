@@ -46,7 +46,7 @@ peer.on('call', (call) => {
     })
 
     if (navigator.mediaDevices) {
-        navigator.mediaDevices.getUserMedia({ video: true, audio: true }.then((stream) => {
+        navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then((stream) => {
             vibrate(500);
             call.answer(stream); // Answer the call with an A/V stream.
             call.on('stream', (remoteStream) => {
@@ -58,7 +58,7 @@ peer.on('call', (call) => {
                 console.log('Failed to get local stream', err);
             })
 
-        )
+
     } else {
         navigator.getUserMedia({ video: true, audio: true }, (stream) => {
             vibrate(500);
@@ -93,7 +93,7 @@ callButton.addEventListener("click", () => {
         navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 
         if (navigator.mediaDevices) {
-            navigator.mediaDevices.getUserMedia({ video: true, audio: true }.then((stream) => {
+            navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then((stream) => {
                 vibrate(500);
                 caller = peer.call(callInput.value, stream);
                 caller.on('stream', (remoteStream) => {
@@ -109,7 +109,7 @@ callButton.addEventListener("click", () => {
                 })
             }).catch((err) => {
                 console.log('Failed to get local stream', err);
-            }))
+            })
         } else {
             navigator.getUserMedia({ video: true, audio: true }, (stream) => {
                 vibrate(500);
