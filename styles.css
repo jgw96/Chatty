@@ -45,3 +45,7 @@ paper-toolbar {
 #imageBlock {
     text-align: center;
 }
+
+.iron-image {
+    width: 13rem !important;
+}
