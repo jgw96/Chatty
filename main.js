@@ -61,6 +61,7 @@ peer.on('call', (call) => {
         )
     } else {
         navigator.getUserMedia({ video: true, audio: true }, (stream) => {
+            vibrate(500);
             call.answer(stream); // Answer the call with an A/V stream.
             call.on('stream', (remoteStream) => {
                 // Show stream in some video/canvas element.
@@ -111,6 +112,7 @@ callButton.addEventListener("click", () => {
             }))
         } else {
             navigator.getUserMedia({ video: true, audio: true }, (stream) => {
+                vibrate(500);
                 caller = peer.call(callInput.value, stream);
                 caller.on('stream', (remoteStream) => {
                     // Show stream in some video/canvas element.
