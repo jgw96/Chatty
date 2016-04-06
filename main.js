@@ -24,7 +24,7 @@ peer.on('open', (id) => {
     idSpan.innerHTML = id;
 });
 
-//navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 peer.on('call', (call) => {
 
     callEndButton.style.display = "block";
@@ -45,19 +45,31 @@ peer.on('call', (call) => {
         video.src = "";
     })
 
-    navigator.mediaDevices.getUserMedia({ video: true, audio: true }.then((stream) => {
-        vibrate(500);
-        call.answer(stream); // Answer the call with an A/V stream.
-        call.on('stream', (remoteStream) => {
-            // Show stream in some video/canvas element.
-            video.src = window.URL.createObjectURL(remoteStream);
+    if (navigator.mediaDevices) {
+        navigator.mediaDevices.getUserMedia({ video: true, audio: true }.then((stream) => {
+            vibrate(500);
+            call.answer(stream); // Answer the call with an A/V stream.
+            call.on('stream', (remoteStream) => {
+                // Show stream in some video/canvas element.
+                video.src = window.URL.createObjectURL(remoteStream);
+            })
         })
-    })
-        .catch((err) => {
-            console.log('Failed to get local stream', err);
-        })
+            .catch((err) => {
+                console.log('Failed to get local stream', err);
+            })
 
-    )
+        )
+    } else {
+        navigator.getUserMedia({ video: true, audio: true }, (stream) => {
+            call.answer(stream); // Answer the call with an A/V stream.
+            call.on('stream', (remoteStream) => {
+                // Show stream in some video/canvas element.
+                video.src = window.URL.createObjectURL(remoteStream);
+            });
+        }, (err) => {
+            console.log('Failed to get local stream', err);
+        });
+    }
 });
 
 fabButton.addEventListener("click", () => {
@@ -77,24 +89,45 @@ callButton.addEventListener("click", () => {
             caller.close();
         })
 
-        //navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-        navigator.getUserMedia({ video: true, audio: true }.then((stream) => {
-            vibrate(500);
-            caller = peer.call(callInput.value, stream);
-            caller.on('stream', (remoteStream) => {
-                // Show stream in some video/canvas element.
-                video.src = window.URL.createObjectURL(remoteStream)
+        navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+
+        if (navigator.mediaDevices) {
+            navigator.mediaDevices.getUserMedia({ video: true, audio: true }.then((stream) => {
+                vibrate(500);
+                caller = peer.call(callInput.value, stream);
+                caller.on('stream', (remoteStream) => {
+                    // Show stream in some video/canvas element.
+                    video.src = window.URL.createObjectURL(remoteStream)
+                });
+                caller.on("close", () => {
+                    callEndButton.style.display = "none";
+                    fabButton.style.display = "block";
+                    idBlock.style.display = "block";
+                    smiley.style.display = "inline-block";
+                    video.src = "";
+                })
+            }).catch((err) => {
+                console.log('Failed to get local stream', err);
+            }))
+        } else {
+            navigator.getUserMedia({ video: true, audio: true }, (stream) => {
+                caller = peer.call(callInput.value, stream);
+                caller.on('stream', (remoteStream) => {
+                    // Show stream in some video/canvas element.
+                    video.src = window.URL.createObjectURL(remoteStream)
+                });
+                caller.on("close", () => {
+                    callEndButton.style.display = "none";
+                    fabButton.style.display = "block";
+                    idBlock.style.display = "block";
+                    smiley.style.display = "inline-block";
+                    video.src = "";
+                })
+            }, (err) => {
+                console.log('Failed to get local stream', err);
             });
-            caller.on("close", () => {
-                callEndButton.style.display = "none";
-                fabButton.style.display = "block";
-                idBlock.style.display = "block";
-                smiley.style.display = "inline-block";
-                video.src = "";
-            })
-        }).catch((err) => {
-            console.log('Failed to get local stream', err);
-        }))
+        }
+
     }, 500);
 
 });
