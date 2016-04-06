@@ -1,0 +1,47 @@
+body {
+    font-family: sans-serif;
+    margin: 0px;
+}
+
+#fabButton {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    background: #FFEB3B !important;
+}
+
+#idBlock {
+    position: absolute;
+    bottom: 30px;
+    left: 16px;
+}
+
+#callEndButton {
+    display: none;
+    position: absolute;
+    bottom: 16px;
+    width: 100%;
+    z-index: 9999;
+    color: red;
+}
+
+video {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    object-fit: cover;
+}
+
+iron-image {
+    margin-top: 8em;
+}
+
+paper-toolbar {
+    background: #2196F3 !important;
+}
+
+#imageBlock {
+    text-align: center;
+}

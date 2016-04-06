@@ -1,0 +1,14 @@
+{
+  "name": "video-chat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Justin Willis",
+  "license": "ISC",
+  "dependencies": {
+    "peerjs_fork_firefox40": "^0.3.15"
+  }
+}
