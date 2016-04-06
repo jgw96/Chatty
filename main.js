@@ -1,3 +1,5 @@
+"use strict";
+
 const peer = new Peer({ key: 'lwjd5qra8257b9' });
 const video = document.querySelector('video');
 const fabButton = document.querySelector("#fabButton");
