@@ -24,7 +24,7 @@ peer.on('open', (id) => {
     idSpan.innerHTML = id;
 });
 
-navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+//navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
 peer.on('call', (call) => {
 
     callEndButton.style.display = "block";
@@ -45,16 +45,19 @@ peer.on('call', (call) => {
         video.src = "";
     })
 
-    navigator.getUserMedia({ video: true, audio: true }, (stream) => {
+    navigator.mediaDevices.getUserMedia({ video: true, audio: true }.then((stream) => {
         vibrate(500);
         call.answer(stream); // Answer the call with an A/V stream.
         call.on('stream', (remoteStream) => {
             // Show stream in some video/canvas element.
             video.src = window.URL.createObjectURL(remoteStream);
-        });
-    }, (err) => {
-        console.log('Failed to get local stream', err);
-    });
+        })
+    })
+        .catch((err) => {
+            console.log('Failed to get local stream', err);
+        })
+
+    )
 });
 
 fabButton.addEventListener("click", () => {
@@ -74,8 +77,8 @@ callButton.addEventListener("click", () => {
             caller.close();
         })
 
-        navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
-        navigator.getUserMedia({ video: true, audio: true }, (stream) => {
+        //navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+        navigator.getUserMedia({ video: true, audio: true }.then((stream) => {
             vibrate(500);
             caller = peer.call(callInput.value, stream);
             caller.on('stream', (remoteStream) => {
@@ -89,9 +92,9 @@ callButton.addEventListener("click", () => {
                 smiley.style.display = "inline-block";
                 video.src = "";
             })
-        }, (err) => {
+        }).catch((err) => {
             console.log('Failed to get local stream', err);
-        });
+        }))
     }, 500);
 
 });
