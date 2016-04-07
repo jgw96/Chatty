@@ -1,17 +1,16 @@
 {
   "name": "Chatty",
-  "short_name": "Chatty",
-  "icons": [{
-    "src": "chatIcon-128.png",
-      "sizes": "128x128",
-      "type": "image/png"
-    }, {
-      "src": "chatIcon-256.png",
-      "sizes": "256x256",
-      "type": "image/png"
-    }],
-  "start_url": "index.html",
-  "display": "standalone",
-  "background_color": "#2196F3",
-  "theme_color": "#2196F3"
+  "description": "Video chat made easy! Simply share your id with anyone (or ask them for their id!) and be chatting within seconds!",
+  "version": "1.0.0",
+  "manifest_version": 2,
+  "app": {
+    "background": {
+      "scripts": ["background.js"]
+    }
+  },
+  "icons": { "16": "chatIcon-128.png", "128": "chatIcon-128.png" },
+  "permissions": [
+      "audioCapture",
+      "videoCapture"
+  ]
 }
